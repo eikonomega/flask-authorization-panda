@@ -26,24 +26,33 @@ def basic_auth(original_function):
     @wraps(original_function)
     def decorated(*args, **kwargs):
         try:
-            if not (request.authorization.username,
-                    request.authorization.password) == (
-                    current_app.config.basic_auth_credentials['username'],
-                    current_app.config.basic_auth_credentials['password']):
-                unauthorized_response = jsonify(
-                    {'message': 'Could not verify your access level '
-                                'for that URL. \nYou have to login '
-                                'with proper credentials',
-                     'statusCode': 401})
-                unauthorized_response.status_code = 401
-                return unauthorized_response
+            required_credentials = (
+                current_app.config['basic_auth_credentials']['username'],
+                current_app.config['basic_auth_credentials']['password'])
+        except KeyError:
+            unauthorized_response = jsonify(
+                {'message': 'Server credential store setup incomplete.',
+                 'statusCode': 500})
+            unauthorized_response.status_code = 500
+            return unauthorized_response
+
+        try:
+            provided_credentials = (request.authorization.username,
+                                    request.authorization.password)
         except AttributeError:
             unauthorized_response = jsonify(
+                {'message': 'HTTP Basic Auth required for this URL.',
+                 'statusCode': 401})
+            unauthorized_response.status_code = 401
+            return unauthorized_response
+
+        if provided_credentials != required_credentials:
+            unauthorized_response = jsonify(
                 {'message': 'Could not verify your access level '
-                            'for that URL. \nYou have to login '
+                            'for that URL. You have to login '
                             'with proper credentials',
                  'statusCode': 401})
             unauthorized_response.status_code = 401
-
+            return unauthorized_response
         return original_function(*args, **kwargs)
     return decorated
