@@ -13,7 +13,7 @@ from setuptools import setup
 
 setup(
     name='Flask-Authorization-Panda',
-    version='0.0',
+    version='0.1',
     url='https://github.com/eikonomega/flask-authorization-panda',
     license='MIT',
     author='Mike Dunn',
