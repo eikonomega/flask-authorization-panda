@@ -20,7 +20,7 @@ setup(
     author_email='mike@eikonomega.com',
     description='Flask Authorization for Pandas!',
     long_description=__doc__,
-    packages=['flask_authorization-panda'],
+    packages=['flask_authorization_panda'],
     zip_safe=False,
     include_package_data=True,
     platforms='any',
