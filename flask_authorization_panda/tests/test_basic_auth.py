@@ -1,8 +1,7 @@
-import json
 from base64 import b64encode
 
 import pytest
-from flask import Flask
+from flask import Flask, jsonify
 
 from flask_authorization_panda import basic_auth
 
@@ -15,7 +14,7 @@ def flask_app():
     @app.route('/')
     @basic_auth
     def hello_world():
-        return 'Hello World!'
+        return jsonify({"statusCode": 200, "message": "Ok"})
 
     return app
 
@@ -30,6 +29,14 @@ def test_no_credentials_in_request(flask_app):
                                                       password='secret')
     response = flask_app.test_client().get('/')
     assert "HTTP Basic Auth required for this URL" in response.data
+
+
+def test_basic_auth(flask_app):
+    flask_app.config['basic_auth_credentials'] = dict(username='admin',
+                                                      password='secret')
+    response = flask_app.test_client().get('/', headers={
+        'Authorization': 'Basic {}'.format(b64encode('admin:secret'))})
+    assert '200' in response.data
 
 
 
