@@ -5,7 +5,7 @@ Functions related to HTTP Basic Authorization
 
 from functools import wraps
 
-from flask import request, Response, current_app
+from flask import request, jsonify, current_app
 
 
 def basic_auth(original_function):
@@ -22,22 +22,28 @@ def basic_auth(original_function):
         original_function (function): The original function.
 
     """
+
     @wraps(original_function)
     def decorated(*args, **kwargs):
         try:
-            assert request.authorization.username == \
-                current_app.config['APP_USERNAME']
-            assert request.authorization.password == \
-                current_app.config['APP_PASSWORD']
+            if not (request.authorization.username,
+                    request.authorization.password) == (
+                    current_app.config.basic_auth_credentials['username'],
+                    current_app.config.basic_auth_credentials['password']):
+                unauthorized_response = jsonify(
+                    {'message': 'Could not verify your access level '
+                                'for that URL. \nYou have to login '
+                                'with proper credentials',
+                     'statusCode': 401})
+                unauthorized_response.status_code = 401
+                return unauthorized_response
         except AttributeError:
-            return Response(
-                'You must provide access credentials for this url.', 401,
-                {'WWW-Authenticate': 'Basic'})
-        except AssertionError:
-            return Response(
-                'Could not verify your access level for that URL.\n'
-                'You have to login with proper credentials', 401,
-                {'WWW-Authenticate': 'Basic'})
+            unauthorized_response = jsonify(
+                {'message': 'Could not verify your access level '
+                            'for that URL. \nYou have to login '
+                            'with proper credentials',
+                 'statusCode': 401})
+            unauthorized_response.status_code = 401
 
         return original_function(*args, **kwargs)
     return decorated
