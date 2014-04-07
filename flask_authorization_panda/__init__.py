@@ -31,6 +31,6 @@ they match the contents of app.config['basic_auth_credentials]'
 
 """
 
-__version__ = '0.6'
+__version__ = '0.1'
 
 from basic_auth import basic_auth
