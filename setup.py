@@ -27,6 +27,7 @@ setup(
     install_requires=[
         'Flask',
         'PyTest'
+        'pytest-cov'
     ],
     classifiers=[
         'Intended Audience :: Developers',
