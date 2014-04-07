@@ -8,19 +8,19 @@ Provides decorators for Flask view methods that implement various
 authentication schemes.
 
 """
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(
     name='Flask-Authorization-Panda',
-    version='0.2',
+    version='0.3',
     url='https://github.com/eikonomega/flask-authorization-panda',
     license='MIT',
     author='Mike Dunn',
     author_email='mike@eikonomega.com',
     description='Flask Authorization for Pandas!',
     long_description=__doc__,
-    packages=['flask_authorization_panda'],
+    packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
     platforms='any',
