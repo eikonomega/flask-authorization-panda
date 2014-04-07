@@ -9,17 +9,18 @@ authentication schemes.
 
 """
 from setuptools import setup, find_packages
+import flask_authorization_panda
 
 
 setup(
     name='Flask-Authorization-Panda',
-    version='0.3',
+    version=flask_authorization_panda.__version__,
     url='https://github.com/eikonomega/flask-authorization-panda',
     license='MIT',
     author='Mike Dunn',
     author_email='mike@eikonomega.com',
     description='Flask Authorization for Pandas!',
-    long_description=__doc__,
+    long_description=flask_authorization_panda.__doc__,
     packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
