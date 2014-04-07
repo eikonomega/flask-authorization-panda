@@ -1,53 +1,36 @@
 """
-**Flask-Authorization-Panda provides easy loading and access to the data elements of
-JSON based configuration files.**
+**Flask-Authorization-Panda is a Flask extension that provides decorators
+for various authentication methods for RESTful web services.
+
+Currently, only HTTP Basic Authentication is supported. **
 
 Usage
 -----
 
-Assuming that an environment variable 'SHARED_CONFIG_FILES' exists
-and points to a directory containing multiple JSON files, including
-the following::
+    >>> from flask.ext.flask_authorization_panda import basic_auth
 
-    ldap.json
-      {
-        "primary": {
-            "url": "ldaps://primaryldap.example.edu:111",
-            "login": "cn=LDAP Testing",
-            "password": "LDAP Password"
-        }
-      }
+During app initialization, store your required username/password in
+the config attribute::
 
-    smtp.json
-      {
-        "TestAccount1": {
-            "url": "smtp.yourschool.edu",
-            "login": "testaccount1",
-            "password": "testaccount1password"
-        }
-      }
+    app = Flask(__name__)
+    app.config['basic_auth_credentials'] = dict(username='admin',
+                                                password='secret')
 
-You would access the contents of those configuration files like this::
 
-    >>> from configuration_panda import ConfigurationPanda
-    >>> program_settings = ConfigurationPanda(['SHARED_CONFIG_FILES'])
-    >>> program_settings.ldap['primary']['url']
-    ldaps://primaryldap.example.edu:111
-    >>> program_settings.smtp['TestAccount1']['login']
-    testaccount1
+Finally, simple apply the @basic_auth decorator to methods which you
+want to require HTTP Basic Auth::
 
-Or, if you prefer dictionary-style syntax::
+    >>> @app.route('/')
+    >>> @basic_auth
+    >>> def hello_world():
+    >>>    return jsonify({"statusCode": 200, "message": "Ok"})
 
-    >>> from configuration_panda import ConfigurationPanda
-    >>> program_settings = ConfigurationPanda(['SHARED_CONFIG_FILES'])
-    >>> program_settings['ldap']['primary']['url']
-    ldaps://primaryldap.example.edu:111
-    >>> program_settings['smtp']['TestAccount1']['login']
-    testaccount1
-
+This will result in all calls against the decorated method to (1) check for
+for credentials on the request.authorization object and (2) verify that
+they match the contents of app.config['basic_auth_credentials]'
 
 """
 
-__version__ = '0.5'
+__version__ = '0.6'
 
 from basic_auth import basic_auth
