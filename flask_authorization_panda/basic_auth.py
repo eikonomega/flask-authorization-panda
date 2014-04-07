@@ -11,8 +11,8 @@ from flask import request, jsonify, current_app
 def basic_auth(original_function):
     """
     Wrapper.  Verify that request.authorization exists and that its
-    contents match the application's config.basic_auth_credentials
-    dict.
+    username & password attributes match the application's
+    config.basic_auth_credentials dict
 
     Args:
         original_function (function): The function to wrap.
