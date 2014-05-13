@@ -44,6 +44,7 @@ def basic_auth(original_function):
                 {'message': 'HTTP Basic Auth required for this URL.',
                  'statusCode': 401})
             unauthorized_response.status_code = 401
+            unauthorized_response.headers['WWW-Authenticate'] = 'Basic'
             return unauthorized_response
 
         if provided_credentials != required_credentials:
@@ -53,6 +54,7 @@ def basic_auth(original_function):
                             'with proper credentials',
                  'statusCode': 401})
             unauthorized_response.status_code = 401
+            unauthorized_response.headers['WWW-Authenticate'] = 'Basic'
             return unauthorized_response
         return original_function(*args, **kwargs)
     return decorated
