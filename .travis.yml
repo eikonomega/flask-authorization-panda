@@ -14,6 +14,6 @@ deploy:
   user: eikonomega
   server: http://pypi.python.org/pypi
   password:
-    secure: g0qFyS/i4aRuSjKgNGJBZ3N/JqsBLOqA53yQZjA92Fl5t5eb8koJT3hTzhiB0tmkwNN8WxHXRaRiqkSvmKK4xwfN8SZ4w4CmxYKVkhZ13LdW6ebX7wFaFUpDWU1l9dlIRFzii0dwMGV7/DiQiGRsOH213ae9nyE58pwbv+vRF3w=
+    secure: sgtFcxNxbvLbfwL0fhQreJKs6OW1M1M/cfjJXnM1bsLzF4jsNtHJt0VY5eOkhuFRoVyXLc6y2sluC4rFcgIGi9tXloakUufB45TdLucxOJ8Neykzt5+9fqA/c/9qGsVx7nIrIdPvfUa/F/y1XRIbiZ+hfVX5rUx7ZDtYMcvSoaU=
   on:
     repo: eikonomega/flask-authorization-panda
