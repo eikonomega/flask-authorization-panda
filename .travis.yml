@@ -12,7 +12,6 @@ after_success: coveralls
 deploy:
   provider: pypi
   user: eikonomega
-  server: http://pypi.python.org/pypi
   password:
     secure: sgtFcxNxbvLbfwL0fhQreJKs6OW1M1M/cfjJXnM1bsLzF4jsNtHJt0VY5eOkhuFRoVyXLc6y2sluC4rFcgIGi9tXloakUufB45TdLucxOJ8Neykzt5+9fqA/c/9qGsVx7nIrIdPvfUa/F/y1XRIbiZ+hfVX5rUx7ZDtYMcvSoaU=
   on:
