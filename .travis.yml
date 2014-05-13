@@ -1,18 +1,15 @@
 language: python
 python:
-  - '2.7'
+- '2.7'
 install:
-  - pip install -r requirements.txt
-  - pip install coveralls pytest-cov
-
+- pip install -r requirements.txt
+- pip install coveralls pytest-cov
 script: py.test --cov-report term-missing --cov flask_authorization_panda
-
 after_success: coveralls
-
 deploy:
   provider: pypi
   user: eikonomega
   password:
-    secure: sgtFcxNxbvLbfwL0fhQreJKs6OW1M1M/cfjJXnM1bsLzF4jsNtHJt0VY5eOkhuFRoVyXLc6y2sluC4rFcgIGi9tXloakUufB45TdLucxOJ8Neykzt5+9fqA/c/9qGsVx7nIrIdPvfUa/F/y1XRIbiZ+hfVX5rUx7ZDtYMcvSoaU=
+    secure: ddA2GEhOsG8Z6KBssW3Mx2qWJ2HxGYDtjpQgvr7l2lizli12UFmtl1CllBaXNB9iZgTYm8g7a2eM73QQU0whkeWGecb233wRLJjUYjQmIv3kZRLkvmWopEYY9iwqyASSvY8ykmU6o3JNCfRvQ5bZw+mDVROs6ldJXYlw/6A6hhM=
   on:
     repo: eikonomega/flask-authorization-panda
