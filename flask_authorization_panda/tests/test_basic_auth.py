@@ -29,6 +29,7 @@ def test_no_credentials_in_request(flask_app):
                                                       password='secret')
     response = flask_app.test_client().get('/')
     assert "HTTP Basic Auth required for this URL" in response.data
+    assert "WWW-Authenticate" in response.headers
 
 
 def test_basic_auth_with_bad_credentials(flask_app):
@@ -37,6 +38,7 @@ def test_basic_auth_with_bad_credentials(flask_app):
     response = flask_app.test_client().get('/', headers={
         'Authorization': 'Basic {}'.format(b64encode('wrong:creds'))})
     assert 'with proper credentials' in response.data
+    assert "WWW-Authenticate" in response.headers
 
 
 def test_basic_auth(flask_app):
