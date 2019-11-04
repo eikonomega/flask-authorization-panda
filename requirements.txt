@@ -8,5 +8,5 @@ itsdangerous==0.24
 py==1.4.20
 pytest==2.5.2
 pytest-cov==1.6
-requests==2.2.1
+requests==2.20.0
 wsgiref==0.1.2
